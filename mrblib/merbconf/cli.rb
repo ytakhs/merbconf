@@ -1,7 +1,8 @@
 module Merbconf
   module CLI
     def self.run(argv)
-      STDOUT.puts "Hello World!"
+      option = Option.parse(argv)
+      puts option.def_file_path
     end
   end
 end
