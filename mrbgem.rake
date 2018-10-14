@@ -4,8 +4,10 @@ MRuby::Gem::Specification.new("merbconf") do |spec|
   spec.summary = "merbconf"
   spec.bins    = ["merbconf"]
 
-  spec.add_dependency "mruby-eval",  core: "mruby-eval"
-  spec.add_dependency "mruby-print", core: "mruby-print"
+  spec.add_dependency "mruby-enumerator", core: "mruby-enumerator"
+  spec.add_dependency "mruby-eval",       core: "mruby-eval"
+  spec.add_dependency 'mruby-kernel-ext', core: 'mruby-kernel-ext'
+  spec.add_dependency "mruby-print",      core: "mruby-print"
 
   spec.add_dependency "mruby-dir",      mgem: "mruby-dir"
   spec.add_dependency "mruby-dir-glob", mgem: "mruby-dir-glob"

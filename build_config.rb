@@ -4,8 +4,7 @@ def gem_config(conf)
   # be sure to include this gem (the cli app)
   conf.gem File.expand_path(File.dirname(__FILE__))
 
-  conf.gem mgem: "mruby-file-stat", checksum_hash: '2d3ea9b5d59d2b41133228a71c110b75cb30a31e'
-  conf.gem mgem: "mruby-optparse"
+  conf.gem mgem: "mruby-file-stat", checksum_hash: "2d3ea9b5d59d2b41133228a71c110b75cb30a31e"
 end
 
 MRuby::Build.new do |conf|
@@ -16,6 +15,10 @@ MRuby::Build.new do |conf|
   conf.enable_test
 
   gem_config(conf)
+
+  conf.instance_eval do
+    @mrbc.compile_options = "-g -B%{funcname} -o-"
+  end
 end
 
 MRuby::Build.new('x86_64-pc-linux-gnu') do |conf|
