@@ -14,9 +14,9 @@ module Merbconf
 
       src_dir = @option.args[0]
       dest_dir = @option.args[1]
-      template_file_name = @option.args[2]
+      template_file_names = @option.args[2..-1]
 
-      if src_dir.nil? || dest_dir.nil? || template_file_name.nil?
+      if src_dir.nil? || dest_dir.nil? || template_file_names.empty?
         $stderr.puts "invalid argument"
         $stderr.puts @option.help
 
@@ -31,14 +31,23 @@ module Merbconf
         end
       end
 
-      template_file_path = File.join(src_dir, template_file_name)
-      if !File.exists?(template_file_path)
-        $stderr.puts "No such file: #{template_file_path}"
+      if template_file_names.size == 1
+        template_file_name = template_file_names[0]
+        template_file_path = File.join(src_dir, template_file_name)
+        if !File.exists?(template_file_path)
+          $stderr.puts "No such file: #{template_file_path}"
 
-        exit 1
+          exit 1
+        end
+        resolver.erb(src_dir, dest_dir, template_file_name, @option[:rename])
+      else
+        if !@option[:rename].nil?
+          $stderr.puts "`rename` option is not available on multiple template file names."
+          exit 1
+        end
+
+        resolver.erb_each(src_dir, dest_dir, *template_file_names)
       end
-
-      resolver.erb(src_dir, dest_dir, template_file_name)
     end
   end
 end
