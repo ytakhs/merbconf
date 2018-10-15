@@ -9,14 +9,36 @@ module Merbconf
     end
 
     def run
-      resolver = Resolver.new(@option[:def_file_path])
+      bind = Bind.new(@option[:def_file_path])
+      resolver = Resolver.new(bind)
 
-      if @option.args[0].nil? || @option.args[1].nil? || @option.args[2].nil?
-        STDERR.puts "invalid argument"
+      src_dir = @option.args[0]
+      dest_dir = @option.args[1]
+      template_file_name = @option.args[2]
+
+      if src_dir.nil? || dest_dir.nil? || template_file_name.nil?
+        $stderr.puts "invalid argument"
+        $stderr.puts @option.help
+
         exit 1
       end
 
-      resolver.erb(@option.args[0], @option.args[1], @option.args[2])
+      [src_dir, dest_dir].each do |dir|
+        if !File.exists?(dir)
+          $stderr.puts "No such directory: #{dir}"
+
+          exit 1
+        end
+      end
+
+      template_file_path = File.join(src_dir, template_file_name)
+      if !File.exists?(template_file_path)
+        $stderr.puts "No such file: #{template_file_path}"
+
+        exit 1
+      end
+
+      resolver.erb(src_dir, dest_dir, template_file_name)
     end
   end
 end

@@ -15,10 +15,6 @@ MRuby::Build.new do |conf|
   conf.enable_test
 
   gem_config(conf)
-
-  conf.instance_eval do
-    @mrbc.compile_options = "-g -B%{funcname} -o-"
-  end
 end
 
 MRuby::Build.new('x86_64-pc-linux-gnu') do |conf|
@@ -50,6 +46,10 @@ MRuby::CrossBuild.new('x86_64-apple-darwin14') do |conf|
   conf.host_target      = 'x86_64-apple-darwin14'
 
   gem_config(conf)
+
+  conf.instance_eval do
+    @mrbc.compile_options = "-g -B%{funcname} -o-"
+  end
 end
 
 MRuby::CrossBuild.new('i386-apple-darwin14') do |conf|

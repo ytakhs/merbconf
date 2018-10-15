@@ -1,13 +1,13 @@
 module Merbconf
   class Bind
-    def initialize(def_file_path)
-      @method_mapping = YAML.load(File.read(def_file_path)).fetch("methods")
+    def initialize(def_file_path = nil)
+      @method_mapping = def_file_path ? YAML.load(File.read(def_file_path)).fetch("methods") : {}
     end
 
     private
 
-    def fetch(name, default = nil, &block)
-      ENV.fetch(name, default, &block)
+    def fetch(name, default = nil)
+      ENV.fetch(name, default)
     end
 
     def method_missing(name, *args)

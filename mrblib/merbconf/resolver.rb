@@ -1,7 +1,7 @@
 module Merbconf
   class Resolver
-    def initialize(def_file_path)
-      @bind = def_file_path ? Bind.new(def_file_path) : nil
+    def initialize(bind)
+      @bind = bind
     end
 
     def erb(src_path, dest_path, template_file_name)
