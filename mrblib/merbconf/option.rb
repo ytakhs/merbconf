@@ -3,6 +3,7 @@ module Merbconf
     DEFAULT_OPTIONS = {
       def_file_path: nil,
       rename: nil,
+      each: false,
     }
 
     def self.parse(argv)
@@ -21,6 +22,10 @@ module Merbconf
 
       opt_parser.on("--rename=RENAME", "rename file name") do |n|
         option[:rename] = n
+      end
+
+      opt_parser.on("--each", "each") do
+        option[:each] = true
       end
 
       option.args = opt_parser.parse!(argv)[1..-1]

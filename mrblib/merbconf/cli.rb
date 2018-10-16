@@ -31,7 +31,7 @@ module Merbconf
         end
       end
 
-      if template_file_names.size == 1
+      if template_file_names.size == 1 && !@option[:each]
         template_file_name = template_file_names[0]
         template_file_path = File.join(src_dir, template_file_name)
         if !File.exists?(template_file_path)

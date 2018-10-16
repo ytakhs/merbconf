@@ -1,7 +1,7 @@
 module Merbconf
   class Bind
     def initialize(def_file_path = nil)
-      @method_mapping = def_file_path ? YAML.load(File.read(def_file_path)).fetch("methods") : {}
+      @variable_mapping = def_file_path ? YAML.load(File.read(def_file_path)).fetch("variables") : {}
     end
 
     private
@@ -11,8 +11,8 @@ module Merbconf
     end
 
     def method_missing(name, *args)
-      if (definition = @method_mapping[name.to_s])
-        fetch(definition["env"], definition["default"])
+      if (variable = @variable_mapping[name.to_s])
+        fetch(variable["env"], variable["default"])
       else
         super
       end
