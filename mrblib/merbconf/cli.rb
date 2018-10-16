@@ -17,8 +17,7 @@ module Merbconf
       template_file_names = @option.args[2..-1]
 
       if src_dir.nil? || dest_dir.nil? || template_file_names.empty?
-        $stderr.puts "invalid argument"
-        $stderr.puts @option.help
+        $stdout.puts @option.help
 
         exit 1
       end
