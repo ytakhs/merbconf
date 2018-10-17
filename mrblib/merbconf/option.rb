@@ -19,7 +19,7 @@ module Merbconf
         option[:rename] = n
       end
 
-      opt_parser.on("--each", "Parse multiple files with glob expansion") do
+      opt_parser.on("--each", "Convert multiple template files with glob expansion") do
         option[:each] = true
       end
 
