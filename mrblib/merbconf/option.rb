@@ -11,21 +11,21 @@ module Merbconf
       option = new(opt_parser)
       opt_parser.banner = "Usage: merbconf [options] <src dir> <dest dir> <template file name>..."
 
-      opt_parser.on("-d DEF_FILE_PATH", "--def=DEF_FILE_PATH", "def file") do |d|
+      opt_parser.on("-d DEF_FILE_PATH", "--def=DEF_FILE_PATH", "Location of definition yaml file") do |d|
         option[:def_file_path] = d
       end
 
-      opt_parser.on("-h", "--help", "help") do
-        $stdout.puts opt_parser
-        exit 0
-      end
-
-      opt_parser.on("--rename=RENAME", "rename file name") do |n|
+      opt_parser.on("--rename=RENAME", "Rename file name (available only to a single template file)") do |n|
         option[:rename] = n
       end
 
-      opt_parser.on("--each", "each") do
+      opt_parser.on("--each", "Parse multiple files with glob expansion") do
         option[:each] = true
+      end
+
+      opt_parser.on("-h", "--help", "Print help") do
+        $stdout.puts opt_parser
+        exit 0
       end
 
       option.args = opt_parser.parse!(argv)[1..-1]

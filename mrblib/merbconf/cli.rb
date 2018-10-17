@@ -5,6 +5,7 @@ module Merbconf
     end
 
     def initialize(argv)
+      @command = argv[0]
       @option = Option.parse(argv)
     end
 
@@ -19,12 +20,12 @@ module Merbconf
       if src_dir.nil? || dest_dir.nil? || template_file_names.empty?
         $stdout.puts @option.help
 
-        exit 1
+        exit 0
       end
 
       [src_dir, dest_dir].each do |dir|
         if !File.exists?(dir)
-          $stderr.puts "No such directory: #{dir}"
+          $stderr.puts "#{@command}: #{dir}: No such directory"
 
           exit 1
         end
@@ -34,14 +35,14 @@ module Merbconf
         template_file_name = template_file_names[0]
         template_file_path = File.join(src_dir, template_file_name)
         if !File.exists?(template_file_path)
-          $stderr.puts "No such file: #{template_file_path}"
+          $stderr.puts "#{@command}: #{template_file_path}: No such file"
 
           exit 1
         end
         resolver.erb(src_dir, dest_dir, template_file_name, @option[:rename])
       else
         if !@option[:rename].nil?
-          $stderr.puts "`rename` option is not available on multiple template file names."
+          $stderr.puts "#{@command}: `rename` option is not available for multiple template file names."
           exit 1
         end
 
