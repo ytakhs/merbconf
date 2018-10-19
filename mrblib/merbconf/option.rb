@@ -11,7 +11,7 @@ module Merbconf
       option = new(opt_parser)
       opt_parser.banner = "Usage: merbconf [options] <src dir> <dest dir> <template file name>..."
 
-      opt_parser.on("-d DEF_FILE_PATH", "--def=DEF_FILE_PATH", "Location of definition yaml file") do |d|
+      opt_parser.on("-f FILE", "--file=FILE", "Location of definition yaml file") do |d|
         option[:def_file_path] = d
       end
 
