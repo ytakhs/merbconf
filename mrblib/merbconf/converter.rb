@@ -1,5 +1,5 @@
 module Merbconf
-  class Resolver
+  class Converter
     def initialize(bind)
       @bind = bind
     end

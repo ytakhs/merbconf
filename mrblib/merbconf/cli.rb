@@ -11,7 +11,7 @@ module Merbconf
 
     def run
       bind = Bind.new(@option[:def_file_path])
-      resolver = Resolver.new(bind)
+      converter = Converter.new(bind)
 
       src_dir = @option.args[0]
       dest_dir = @option.args[1]
@@ -39,14 +39,14 @@ module Merbconf
 
           exit 1
         end
-        resolver.erb(src_dir, dest_dir, template_file_name, @option[:rename])
+        converter.erb(src_dir, dest_dir, template_file_name, @option[:rename])
       else
         if !@option[:rename].nil?
           $stderr.puts "#{@command}: `rename` option is not available for multiple template file names."
           exit 1
         end
 
-        resolver.erb_each(src_dir, dest_dir, *template_file_names)
+        converter.erb_each(src_dir, dest_dir, *template_file_names)
       end
     end
   end
